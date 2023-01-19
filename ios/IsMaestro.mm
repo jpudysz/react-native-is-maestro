@@ -3,16 +3,69 @@
 @implementation IsMaestro
 RCT_EXPORT_MODULE()
 
-// Example method
-// See // https://reactnative.dev/docs/native-modules-ios
-RCT_REMAP_METHOD(multiply,
-                 multiplyWithA:(double)a withB:(double)b
-                 withResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
-{
-    NSNumber *result = @(a * b);
+// this function is cleaner and doesn't block thread
+// for now awaiting for meastro team to fix connection issue
+- (BOOL)isPortReachable:(NSString *)ipAddress port:(NSInteger)port {
+    CFSocketRef socketRef = CFSocketCreate(kCFAllocatorDefault,
+                                           PF_INET,
+                                           SOCK_STREAM,
+                                           IPPROTO_TCP,
+                                           kCFSocketConnectCallBack,
+                                           nil,
+                                           NULL);
 
-    resolve(result);
+    struct sockaddr_in addr_in;
+
+    memset(&addr_in, 0, sizeof(addr_in));
+    addr_in.sin_family = AF_INET;
+    addr_in.sin_port = htons(port);
+    
+    NSString *urlPath = [NSString stringWithFormat:@"%@:%zd", ipAddress, port];
+    
+    addr_in.sin_addr.s_addr = inet_addr([urlPath UTF8String]);
+
+    CFDataRef dataRef = CFDataCreate(kCFAllocatorDefault, (UInt8 *)&addr_in, sizeof(addr_in));
+    CFSocketError sockError = CFSocketConnectToAddress(socketRef, dataRef, kCFSocketConnectCallBack);
+
+    BOOL isReachable = sockError == kCFSocketSuccess;
+
+    CFRelease(dataRef);
+    CFSocketInvalidate(socketRef);
+    CFRelease(socketRef);
+
+    return isReachable;
+}
+
+- (BOOL)isUrlReachable:(NSString *)ipAddress port:(NSInteger)port {
+    __block BOOL isRunning = NO;
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    
+    NSString *urlPath = [NSString stringWithFormat:@"%@:%zd", ipAddress, port];
+    NSURL *url = [NSURL URLWithString:urlPath];
+    
+    if (!url) {
+        return NO;
+    }
+    
+    [[[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            isRunning = NO;
+        } else {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+            isRunning = httpResponse.statusCode == 404;
+        }
+        dispatch_semaphore_signal(semaphore);
+    }] resume];
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
+    return isRunning;
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isMaestro)
+{
+    BOOL isReachable = [self isUrlReachable:@"http://localhost" port:9080];
+    
+    return @(isReachable);
 }
 
 // Don't compile this code when we build for the old architecture.
