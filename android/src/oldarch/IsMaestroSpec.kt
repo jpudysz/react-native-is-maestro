@@ -3,8 +3,9 @@ package com.ismaestro
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
+import com.facebook.react.bridge.ReactModuleWithSpec
 
-abstract class IsMaestroSpec internal constructor(context: ReactApplicationContext) : ReactContextBaseJavaModule(context) {
+abstract class IsMaestroSpec internal constructor(context: ReactApplicationContext) : ReactContextBaseJavaModule(context), ReactModuleWithSpec {
     private val module: IsMaestroModule by lazy {
         IsMaestroModule(context)
     }
