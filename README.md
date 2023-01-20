@@ -9,6 +9,11 @@ npm install react-native-is-maestro
 yarn add react-native-is-maestro
 ```
 
+## Auto-linking
+```sh
+cd ios && pod install
+```
+
 ## Supported versions
 
 This library is fully compatible with TypeScript and can be used on both iOS and Android platforms. It also supports both old (Paper) and new architecture (Fabric) of React Native.
@@ -16,6 +21,7 @@ This library is fully compatible with TypeScript and can be used on both iOS and
 | Lib version | RN version | Maestro CLI |
 |-------------|------------|-------------|
 | 1.0         | 0.71       | 1.19        |
+
 
 *Library may work on lower versions of React Native (with paper architecture), but it wasn't tested!*
 

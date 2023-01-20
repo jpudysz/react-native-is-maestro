@@ -8,10 +8,9 @@ const LINKING_ERROR =
 
 // @ts-expect-error
 const isTurboModuleEnabled = global.__turboModuleProxy != null
-
 const IsMaestroModule = isTurboModuleEnabled ? require('./NativeIsMaestro').default : NativeModules.IsMaestro
 
-const IsMaestro = IsMaestroModule
+const MaestroModule = IsMaestroModule
     ? IsMaestroModule
     : new Proxy(
           {},
@@ -22,6 +21,6 @@ const IsMaestro = IsMaestroModule
           }
       )
 
-export function isMaestro(): boolean {
-    return IsMaestro.isMaestro()
+export const isMaestro = (): boolean => {
+    return MaestroModule.isMaestro()
 }
