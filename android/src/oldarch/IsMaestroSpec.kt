@@ -2,20 +2,9 @@ package com.ismaestro
 
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
-import com.facebook.react.bridge.ReactMethod
-import com.facebook.react.bridge.ReactModuleWithSpec
 
-abstract class IsMaestroSpec internal constructor(context: ReactApplicationContext) : ReactContextBaseJavaModule(context), ReactModuleWithSpec {
-    private val module: IsMaestroModule by lazy {
-        IsMaestroModule(context)
-    }
+abstract class IsMaestroSpec internal constructor(context: ReactApplicationContext) :
+    ReactContextBaseJavaModule(context) {
 
-    override fun getName(): String {
-        return IsMaestroModule.NAME;
-    }
-
-    @ReactMethod(isBlockingSynchronousMethod = true)
-    fun isMaestro(): Boolean {
-        return IsMaestroModule(this.reactApplicationContext).isMaestro("localhost", 7001)
-    }
+    abstract fun isMaestro(): Boolean
 }
