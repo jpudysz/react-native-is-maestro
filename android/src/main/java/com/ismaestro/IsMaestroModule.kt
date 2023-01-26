@@ -7,17 +7,13 @@ import java.net.Socket
 
 class IsMaestroModule internal constructor(context: ReactApplicationContext) : IsMaestroSpec(context) {
     override fun getName(): String {
-        return NAME;
+        return NAME
     }
 
     @ReactMethod(isBlockingSynchronousMethod = true)
     override fun isMaestro(): Boolean {
-        return determineIsMaestro("localhost", 7001)
-    }
-
-    private fun determineIsMaestro(ipAddress: String, port: Int): Boolean {
         return try {
-            val socket = Socket(InetAddress.getByName(ipAddress), port)
+            val socket = Socket(InetAddress.getByName("localhost"), 7001)
             socket.close()
 
             true
