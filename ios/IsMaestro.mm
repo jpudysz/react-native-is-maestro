@@ -63,7 +63,7 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isMaestro)
 {
-    BOOL isReachable = [self isUrlReachable:@"http://localhost" port:9080];
+    BOOL isReachable = [self isUrlReachable:@"http://localhost" port:22087];
     
     return @(isReachable);
 }
