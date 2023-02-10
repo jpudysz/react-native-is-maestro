@@ -47,18 +47,6 @@ This library is fully compatible with TypeScript and can be used on both iOS and
 | 2.0         | \>= 0.71   | \>= 1.22.1  |
 
 
-*Library may work on lower versions of React Native (with paper architecture), but it wasn't tested!*
-
-## Usage
-
-```typescript
-import { isMaestro } from 'react-native-is-maestro'
-
-// ...
-
-const result: boolean = isMaestro()
-```
-
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
