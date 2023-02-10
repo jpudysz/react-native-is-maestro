@@ -19,9 +19,9 @@ RCT_EXPORT_MODULE()
     memset(&addr_in, 0, sizeof(addr_in));
     addr_in.sin_family = AF_INET;
     addr_in.sin_port = htons(port);
-    
+
     NSString *urlPath = [NSString stringWithFormat:@"%@:%zd", ipAddress, port];
-    
+
     addr_in.sin_addr.s_addr = inet_addr([urlPath UTF8String]);
 
     CFDataRef dataRef = CFDataCreate(kCFAllocatorDefault, (UInt8 *)&addr_in, sizeof(addr_in));
@@ -39,14 +39,14 @@ RCT_EXPORT_MODULE()
 - (BOOL)isUrlReachable:(NSString *)ipAddress port:(NSInteger)port {
     __block BOOL isRunning = NO;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-    
+
     NSString *urlPath = [NSString stringWithFormat:@"%@:%zd", ipAddress, port];
     NSURL *url = [NSURL URLWithString:urlPath];
-    
+
     if (!url) {
         return NO;
     }
-    
+
     [[[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             isRunning = NO;
@@ -63,8 +63,17 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isMaestro)
 {
-    BOOL isReachable = [self isUrlReachable:@"http://localhost" port:22087];
-    
+    BOOL isReachable = NO;
+    NSArray *maestroPorts = @[@22087, @9999];
+
+    for (NSNumber *port in maestroPorts) {
+        isReachable = [self isUrlReachable:@"http://localhost" port:[port intValue]];
+
+        if (isReachable) {
+            break;
+        }
+    }
+
     return @(isReachable);
 }
 

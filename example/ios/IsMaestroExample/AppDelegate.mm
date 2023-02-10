@@ -1,4 +1,5 @@
 #import "AppDelegate.h"
+#import "IsMaestro.h"
 
 #import <React/RCTBundleURLProvider.h>
 
@@ -6,6 +7,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  self.initialProps = @{};
   self.moduleName = @"IsMaestroExample";
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }

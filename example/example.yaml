@@ -1,5 +1,7 @@
-appId: org.reactjs.native.example.IsMaestroExample
+appId: ${APP_ID}
 ---
 
-- launchApp:
-      clearState: true
+- launchApp
+- extendedWaitUntil:
+    visible: .*isMaestro.*
+    timeout: 3000
