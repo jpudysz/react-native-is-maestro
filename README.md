@@ -14,13 +14,37 @@ yarn add react-native-is-maestro
 cd ios && pod install
 ```
 
+## Usage
+```tsx
+import React from 'react'
+import { StyleSheet, View, Text } from 'react-native'
+import { isMaestro } from 'react-native-is-maestro'
+
+export const App = () => (
+    <View style={styles.container}>
+        <Text>
+            isMaestro detected: {isMaestro() ? 'yes' : 'no'}
+        </Text>
+    </View>
+)
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
+})
+```
+
 ## Supported versions
 
 This library is fully compatible with TypeScript and can be used on both iOS and Android platforms. It also supports both old (Paper) and new architecture (Fabric) of React Native.
 
 | Lib version | RN version | Maestro CLI |
 |-------------|------------|-------------|
-| 1.0         | 0.71       | 1.19        |
+| 1.0         | \>= 0.71   | \>= 1.19    |
+| 2.0         | \>= 0.71   | \>= 1.22.1  |
 
 
 *Library may work on lower versions of React Native (with paper architecture), but it wasn't tested!*
