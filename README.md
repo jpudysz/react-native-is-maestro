@@ -7,7 +7,6 @@ This React Native library provides a way to detect synchronously if the app is c
 ```sh
 npm install react-native-is-maestro
 yarn add react-native-is-maestro # RN 0.71 and above
-yarn add react-native-is-maestro@1.x.x # RN 0.70 and below
 ```
 
 ## Auto-linking
