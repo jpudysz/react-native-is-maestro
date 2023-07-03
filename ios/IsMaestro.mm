@@ -1,5 +1,9 @@
 #import "IsMaestro.h"
 
+#if RCT_NEW_ARCH_ENABLED
+#import "RNIsMaestroSpec.h"
+#endif
+
 @implementation IsMaestro
 RCT_EXPORT_MODULE()
 

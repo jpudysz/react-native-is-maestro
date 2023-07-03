@@ -6,19 +6,23 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "pods": "pod-install --quiet",
+    "pods": "RCT_NEW_ARCH_ENABLED=1 pod-install --quiet",
     "test:ios": "maestro test -e APP_ID=org.reactjs.native.example.IsMaestroExample example.yaml",
     "test:android": "maestro test -e APP_ID=com.ismaestroexample example.yaml"
   },
   "dependencies": {
     "react": "18.2.0",
-    "react-native": "0.71.2"
+    "react-native": "0.72.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "@babel/preset-env": "^7.14.0",
-    "@babel/runtime": "^7.12.5",
-    "babel-plugin-module-resolver": "^4.1.0",
-    "metro-react-native-babel-preset": "0.73.7"
+    "@babel/core": "7.22.5",
+    "@babel/preset-env": "7.22.5",
+    "@babel/runtime": "7.22.5",
+    "@react-native/metro-config": "0.72.7",
+    "@types/metro-config": "0.76.3",
+    "metro-react-native-babel-preset": "0.76.7"
+  },
+  "engines": {
+    "node": ">=16"
   }
 }
