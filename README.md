@@ -14,6 +14,9 @@ yarn add react-native-is-maestro
 cd ios && pod install
 ```
 
+## Expo
+Works out of the box without any addition config
+
 ## Usage
 ```tsx
 import React from 'react'
@@ -44,7 +47,7 @@ This library is fully compatible with TypeScript and can be used on both iOS and
 | Lib version | RN version | Maestro CLI |
 |-------------|------------|-------------|
 | 1.0         | \>= 0.71   | \>= 1.19    |
-| 2.0         | \>= 0.71   | \>= 1.22.1  |
+| 2.0         | 0.71, 0.72 | \>= 1.22.1  |
 
 
 ## Contributing
