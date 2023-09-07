@@ -65,7 +65,7 @@ RCT_EXPORT_MODULE()
     return isRunning;
 }
 
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isMaestro)
+RCT_EXPORT_METHOD(isMaestro:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     BOOL isReachable = NO;
     NSArray *maestroPorts = @[@22087, @9999];
@@ -78,7 +78,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isMaestro)
         }
     }
 
-    return @(isReachable);
+    resolve(@(isReachable));
 }
 
 // Don't compile this code when we build for the old architecture.
