@@ -10,8 +10,8 @@ class IsMaestroModule internal constructor(context: ReactApplicationContext) : I
         return NAME
     }
 
-    @ReactMethod(isBlockingSynchronousMethod = true)
-    override fun isMaestro(): Boolean {
+    @ReactMethod
+    override fun isMaestro(promise: Promise) {
         val ports = listOf(7001, 9999)
 
         for (port in ports) {
@@ -19,13 +19,13 @@ class IsMaestroModule internal constructor(context: ReactApplicationContext) : I
                 val socket = Socket(InetAddress.getByName("localhost"), port)
                 socket.close()
 
-                return true
+                promise.resolve(true)
             } catch (e: Exception) {
                 continue
             }
         }
 
-        return false
+        promise.resolve(false)
     }
 
     companion object {

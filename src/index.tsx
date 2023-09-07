@@ -21,6 +21,6 @@ const MaestroModule = IsMaestroModule
           }
       )
 
-export const isMaestro = (): boolean => {
+export const getIsMaestro = (): Promise<boolean> => {
     return MaestroModule.isMaestro()
 }
