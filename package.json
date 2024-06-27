@@ -1,6 +1,6 @@
 {
   "name": "react-native-is-maestro",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Detect synchronously if the app is currently running in an E2E test environment with maestro",
   "scripts": {
     "typecheck": "tsc --noEmit",
