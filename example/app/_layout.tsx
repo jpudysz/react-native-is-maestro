@@ -1,37 +1,29 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
-import { useFonts } from 'expo-font'
-import { Stack } from 'expo-router'
-import * as SplashScreen from 'expo-splash-screen'
-import { useEffect } from 'react'
+import { Image, View, StyleSheet } from 'react-native'
 import 'react-native-reanimated'
+// import { isMaestro } from 'react-native-is-maestro'
 
-import { useColorScheme } from '@/hooks/useColorScheme'
+const RootLayout = () => (
+    <View>
+        <Image
+            style={styles.reactLogo}
+            source={require('../assets/images/react-logo.png')}
+        />
+        {/*<Text>*/}
+        {/*    isMaestro detected: {isMaestro() ? 'yes' : 'no'}*/}
+        {/*</Text>*/}
+    </View>
+)
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync()
+export default RootLayout
 
-export default function RootLayout() {
-    const colorScheme = useColorScheme()
-    const [loaded] = useFonts({
-        SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf')
-    })
-
-    useEffect(() => {
-        if (loaded) {
-            SplashScreen.hideAsync()
-        }
-    }, [loaded])
-
-    if (!loaded) {
-        return null
+const styles = StyleSheet.create({
+    reactLogo: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    logo: {
+        height: 200,
+        width: 200
     }
-
-    return (
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-            <Stack>
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="+not-found" />
-            </Stack>
-        </ThemeProvider>
-    )
-}
+})
