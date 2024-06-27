@@ -23,7 +23,7 @@
     "android",
     "cxx",
     "react-native.config.js",
-    "react-native-unistyles.podspec",
+    "react-native-is-maestro.podspec",
     "!lib/typescript/examples",
     "!ios/build",
     "!android/build",
