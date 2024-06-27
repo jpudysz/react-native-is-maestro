@@ -7,7 +7,8 @@
     "lint": "eslint",
     "release": "release-it",
     "precommit": "yarn lint && yarn typecheck",
-    "prepare": "husky && bob build",
+    "prepack": "bob build",
+    "prepare": "husky && yarn prepack",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build"
   },
   "main": "./lib/commonjs/index",
