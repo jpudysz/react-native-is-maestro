@@ -3,7 +3,7 @@ require "json"
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 
 Pod::Spec.new do |s|
-    s.name         = "react-native-is-maestro"
+    s.name         = package["name"]
     s.version      = package["version"]
     s.summary      = package["description"]
     s.homepage     = package["homepage"]
@@ -13,7 +13,13 @@ Pod::Spec.new do |s|
     s.platforms    = { :ios => min_ios_version_supported }
     s.source       = { :git => "https://github.com/jpudysz/react-native-is-maestro.git", :tag => "#{s.version}" }
 
-    s.source_files = "ios/**/*.{h,m,mm}"
+    s.source_files = [
+        "ios/**/*.{h,m,mm}",
+        "cxx/*.{h,cpp}"
+    ]
+    s.pod_target_xcconfig = {
+        "CLANG_CXX_LANGUAGE_STANDARD" => "c++20"
+    }
 
     install_modules_dependencies(s)
 end
