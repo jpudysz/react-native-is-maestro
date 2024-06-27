@@ -1,91 +1,43 @@
 buildscript {
-  // Buildscript is evaluated before everything else so we can't use getExtOrDefault
-  def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["IsMaestro_kotlinVersion"]
-
-  repositories {
-    google()
-    mavenCentral()
-  }
-
-  dependencies {
-    classpath "com.android.tools.build:gradle:7.2.1"
-    // noinspection DifferentKotlinGradleVersion
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-  }
+    ext.safeExtGet = {prop, fallback ->
+        rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+    }
+    repositories {
+        google()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle:7.3.1")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.22")
+    }
 }
+
+apply plugin: 'com.android.library'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 def isNewArchitectureEnabled() {
-  return rootProject.hasProperty("newArchEnabled") && rootProject.getProperty("newArchEnabled") == "true"
+    return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
 }
-
-apply plugin: "com.android.library"
-apply plugin: "kotlin-android"
 
 if (isNewArchitectureEnabled()) {
   apply plugin: "com.facebook.react"
 }
 
-def getExtOrDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["IsMaestro_" + name]
-}
-
-def getExtOrIntegerDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["IsMaestro_" + name]).toInteger()
-}
-
 android {
-  compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
+    compileSdkVersion safeExtGet('compileSdkVersion', 34)
+    namespace "com.ismaestro"
 
-  defaultConfig {
-    minSdkVersion getExtOrIntegerDefault("minSdkVersion")
-    targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
-    buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
-  }
-  buildTypes {
-    release {
-      minifyEnabled false
+    defaultConfig {
+        buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
+        minSdkVersion safeExtGet('minSdkVersion', 23)
     }
-  }
-
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
-
-  sourceSets {
-    main {
-      if (isNewArchitectureEnabled()) {
-        java.srcDirs += [
-          "src/newarch",
-          // This is needed to build Kotlin project with NewArch enabled
-          "${project.buildDir}/generated/source/codegen/java"
-        ]
-      } else {
-        java.srcDirs += ["src/oldarch"]
-      }
-    }
-  }
 }
 
 repositories {
-  mavenCentral()
-  google()
+    mavenCentral()
+    google()
 }
-
-def kotlin_version = getExtOrDefault("kotlinVersion")
 
 dependencies {
-  // For < 0.71, this will be from the local maven repo
-  // For > 0.71, this will be replaced by `com.facebook.react:react-android:$version` by react gradle plugin
-  //noinspection GradleDynamicVersion
-  implementation "com.facebook.react:react-native"
-  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-}
-
-if (isNewArchitectureEnabled()) {
-  react {
-    jsRootDir = file("../src/")
-    libraryName = "IsMaestro"
-    codegenJavaPackageName = "com.ismaestro"
-  }
+    implementation 'com.facebook.react:react-native'
 }

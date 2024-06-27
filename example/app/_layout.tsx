@@ -1,23 +1,23 @@
-import { Image, View, StyleSheet } from 'react-native'
+import { Image, View, Text, StyleSheet } from 'react-native'
 import 'react-native-reanimated'
-// import { isMaestro } from 'react-native-is-maestro'
+import { isMaestro } from 'react-native-is-maestro'
 
 const RootLayout = () => (
-    <View>
+    <View style={styles.container}>
         <Image
-            style={styles.reactLogo}
+            style={styles.logo}
             source={require('../assets/images/react-logo.png')}
         />
-        {/*<Text>*/}
-        {/*    isMaestro detected: {isMaestro() ? 'yes' : 'no'}*/}
-        {/*</Text>*/}
+        <Text>
+            isMaestro detected: {isMaestro() ? 'yes' : 'no'}
+        </Text>
     </View>
 )
 
 export default RootLayout
 
 const styles = StyleSheet.create({
-    reactLogo: {
+    container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'

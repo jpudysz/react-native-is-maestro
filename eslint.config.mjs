@@ -13,6 +13,11 @@ export default [
         },
         plugins: {
             'react-native': fixupPluginRules(reactNative)
+        },
+        rules: {
+            '@typescript-eslint/no-unsafe-return': 'off',
+            '@typescript-eslint/ban-ts-comment': 'off',
+            'no-underscore-dangle': 'off'
         }
     },
     {

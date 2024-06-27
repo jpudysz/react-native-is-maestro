@@ -14,8 +14,7 @@ Pod::Spec.new do |s|
     s.source       = { :git => "https://github.com/jpudysz/react-native-is-maestro.git", :tag => "#{s.version}" }
 
     s.source_files = [
-        "ios/**/*.{h,m,mm}",
-        "cxx/*.{h,cpp}"
+        "ios/**/*.{h,m,mm}"
     ]
     s.pod_target_xcconfig = {
         "CLANG_CXX_LANGUAGE_STANDARD" => "c++20"
