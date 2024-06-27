@@ -1,28 +1,41 @@
 {
-  "name": "IsMaestroExample",
-  "version": "0.0.1",
-  "private": true,
+  "name": "example",
+  "main": "expo-router/entry",
+  "version": "1.0.0",
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
-    "pods": "RCT_NEW_ARCH_ENABLED=1 pod-install --quiet",
-    "test:ios": "maestro test -e APP_ID=org.reactjs.native.example.IsMaestroExample example.yaml",
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "pods": "pod-install",
+    "test:ios": "maestro test -e APP_ID=com.ismaestroexample example.yaml",
     "test:android": "maestro test -e APP_ID=com.ismaestroexample example.yaml"
   },
   "dependencies": {
-    "react": "18.2.0",
-    "react-native": "0.72.1"
+    "@react-navigation/native": "6.1.17",
+    "expo": "51.0.14",
+    "expo-constants": "16.0.2",
+    "expo-linking": "6.3.1",
+    "expo-router": "3.5.16",
+    "expo-status-bar": "1.12.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-native": "0.74.2",
+    "react-native-gesture-handler": "2.17.1",
+    "react-native-reanimated": "3.12.1",
+    "react-native-safe-area-context": "4.10.5",
+    "react-native-screens": "3.32.0",
+    "react-native-web": "0.19.12"
   },
   "devDependencies": {
-    "@babel/core": "7.22.5",
-    "@babel/preset-env": "7.22.5",
-    "@babel/runtime": "7.22.5",
-    "@react-native/metro-config": "0.72.7",
-    "@types/metro-config": "0.76.3",
-    "metro-react-native-babel-preset": "0.76.7"
+    "@babel/core": "7.24.7",
+    "@types/node": "20.14.9",
+    "@types/react": "18.3.3",
+    "babel-plugin-module-resolver": "5.0.2",
+    "typescript": "5.5.2"
   },
+  "private": true,
   "engines": {
-    "node": ">=16"
+    "node": ">=20"
   }
 }

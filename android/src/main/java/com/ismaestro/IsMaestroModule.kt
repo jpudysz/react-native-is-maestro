@@ -2,33 +2,24 @@ package com.ismaestro
 
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactMethod
-import java.net.InetAddress
+import com.facebook.react.bridge.ReactContextBaseJavaModule
 import java.net.Socket
 
-class IsMaestroModule internal constructor(context: ReactApplicationContext) : IsMaestroSpec(context) {
+class IsMaestroModule internal constructor(context: ReactApplicationContext) :  ReactContextBaseJavaModule(context) {
     override fun getName(): String {
         return NAME
     }
 
-    @ReactMethod(isBlockingSynchronousMethod = true)
-    override fun isMaestro(): Boolean {
-        val ports = listOf(7001, 9999)
-
-        for (port in ports) {
-            try {
-                val socket = Socket(InetAddress.getByName("localhost"), port)
-                socket.close()
-
-                return true
-            } catch (e: Exception) {
-                continue
-            }
-        }
-
-        return false
-    }
-
     companion object {
         const val NAME = "IsMaestro"
+    }
+
+    @ReactMethod(isBlockingSynchronousMethod = true)
+    fun isMaestro(): Boolean {
+        return try {
+            Socket("localhost", 7001).use { true }
+        } catch (e: Exception) {
+            false
+        }
     }
 }
